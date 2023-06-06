@@ -29,20 +29,20 @@ model Observation {
 }
 
 model Activity {
-  id          Int           @id
-  observation Observation[]
-  activity    String
+  id           Int           @id
+  observations Observation[]
+  name         String
 }
 
 model Coordinates {
-  id          Int           @id
-  observation Observation[]
-  latitude    String
-  longitude   String
+  id           Int           @id
+  observations Observation[]
+  latitude     String
+  longitude    String
 }
 
 model MoonPhase {
-  id          Int           @id
-  observation Observation[]
-  phase       String
+  id           Int           @id
+  observations Observation[]
+  name         String
 }

@@ -1,8 +1,12 @@
-import ObservationService from '@/services/observation.service'
+import ObservationService from '@/services/observation.service';
 
 export default async function Observations() {
-    const service = new ObservationService()
-    const observations = await service.getAll()
+    const service = new ObservationService();
+    const observations = await service.getAll();
+
+    const aliveFormat = (isAlive: boolean): string => {
+        return isAlive ? 'yay I live' : "nay I'm dead";
+    };
 
     return (
         <section id="observations">
@@ -12,7 +16,7 @@ export default async function Observations() {
                 {observations.map((observation) => (
                     <li key={observation.id}>
                         <span>id: {observation.id}</span>
-                        <span>alive: {observation.isAlive}</span>
+                        <span>alive: {aliveFormat(observation.isAlive)}</span>
                         <span>quantity: {observation.quantity}</span>
                         <span>temperature: {observation.temperature}C</span>
                         <span>weather: {observation.weather}</span>
@@ -23,5 +27,5 @@ export default async function Observations() {
                 ))}
             </ul>
         </section>
-    )
+    );
 }

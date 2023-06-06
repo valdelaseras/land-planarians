@@ -1,31 +1,53 @@
-import ObservationService from '@/services/observation.service';
+'use client';
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
+import { Observation } from '@/model/observation.interface';
 
-export default async function Observations() {
-    const service = new ObservationService();
-    const observations = await service.getAll();
+const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
+    { field: 'isAlive', headerName: 'Alive' },
+    {
+        field: 'location',
+        headerName: 'Location',
+        valueGetter: (params: GridValueGetterParams) =>
+            `${params.row.location.longitude}, ${params.row.location.latitude}`,
+    },
+    { field: 'quantity', headerName: 'Quantity' },
+    { field: 'activity', headerName: 'Activity' },
+    { field: 'fluorescence', headerName: 'Fluorescence detected' },
+    { field: 'moonPhase', headerName: 'Moon phase' },
+    {
+        field: 'temperature',
+        headerName: 'Temperature',
+        valueGetter: (params: GridValueGetterParams) =>
+            `${params.row.temperature}°C`,
+    },
+    { field: 'weather', headerName: 'Weather' },
+    {
+        field: 'humidity',
+        headerName: 'Humidity',
+        valueGetter: (params: GridValueGetterParams) =>
+            `${params.row.humidity}%`,
+    },
+    { field: 'note', headerName: 'Observer note' },
+];
 
-    const aliveFormat = (isAlive: boolean): string => {
-        return isAlive ? 'yay I live' : "nay I'm dead";
-    };
+export default function Observations() {
+    const [observations, setObservations] = useState([] as Observation[]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/observations')
+            .then((response) => response.json())
+            .then((result) => setObservations(result));
+    }, []);
 
     return (
         <section id="observations">
             <h2>Observations</h2>
-
-            <ul>
-                {observations.map((observation) => (
-                    <li key={observation.id}>
-                        <span>id: {observation.id}</span>
-                        <span>alive: {aliveFormat(observation.isAlive)}</span>
-                        <span>quantity: {observation.quantity}</span>
-                        <span>temperature: {observation.temperature}C</span>
-                        <span>weather: {observation.weather}</span>
-                        <span>humidity: {observation.humidity}%</span>
-                        <span>fluorescence: {observation.fluorescence}</span>
-                        <span>note: {observation.note}</span>
-                    </li>
-                ))}
-            </ul>
+            <DataGrid
+                columns={columns}
+                rows={observations}
+            />
         </section>
     );
 }

@@ -11,7 +11,7 @@ export interface Observation {
   temperature: number;    // should be autofilled based on location and datetime weather API
   weather: string;        // should be autofilled based on location and datetime weather API
   humidity: number;       // should be autofilled based on location and datetime weather API
-  fluorescence: boolean;
+  fluorescence: boolean;   // should be yes, no OR not tested
   note?: string;
   activity?: ACTIVITY;    // todo: if dead, no activity ( can be null but still )
 }

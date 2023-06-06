@@ -69,12 +69,16 @@ export default class ObservationService {
    * @returns Observation
    */
   mapToObservation( observation: any ): Observation {
-    return {
+    const result = {
       ...observation,
       location: observation.coordinates,
       activity: observation.activity?.name as ACTIVITY || null,
       moonPhase: observation.moonPhase.name as MOON_PHASE
-    }
+    };
+
+    delete result.coordinates;
+
+    return result;
   }
 }
 

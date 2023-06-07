@@ -11,22 +11,26 @@ import { prisma } from "@/prisma/prisma.client";
  */
 const observationSelect = {
   id: true,
-  isAlive: true,
-  quantity: true,
   datetime: true,
-  temperature: true,
-  weather: true,
-  humidity: true,
-  fluorescence: true,
-  note: true,
-  activity: true,
-  moonPhase: true,
+  individuals: {
+    select: {
+      fluorescence: true,
+      status: true,
+      activity: true,
+    }
+  },
   coordinates: {
     select: {
       longitude: true,
       latitude: true
     }
   },
+  temperature: true,
+  weather: true,
+  humidity: true,
+  moonPhase: true,
+  environment: true,
+  note: true,
 };
 
 export default class ObservationService {
@@ -63,6 +67,7 @@ export default class ObservationService {
   mapToObservation( observation: any ): Observation {
     const result = {
       ...observation,
+      individuals: observation.individuals,
       location: observation.coordinates,
     };
 

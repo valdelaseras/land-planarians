@@ -4,32 +4,30 @@ import { useEffect, useState } from 'react';
 import { Observation } from '@/model/observation.interface';
 
 const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'isAlive', headerName: 'Alive' },
+    { field: 'datetime', headerName: 'Datetime' },
     {
         field: 'location',
         headerName: 'Location',
         valueGetter: (params: GridValueGetterParams) =>
             `${params.row.location.longitude}, ${params.row.location.latitude}`,
     },
-    { field: 'quantity', headerName: 'Quantity' },
-    { field: 'activity', headerName: 'Activity' },
-    { field: 'fluorescence', headerName: 'Fluorescence detected' },
-    { field: 'moonPhase', headerName: 'Moon phase' },
+    { field: 'individuals', headerName: 'Individuals' },
+    { field: 'environment', headerName: 'Environment' },
     {
         field: 'temperature',
         headerName: 'Temperature',
         valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.temperature}°C`,
+          `${params.row.temperature}°C`,
     },
-    { field: 'weather', headerName: 'Weather' },
     {
         field: 'humidity',
         headerName: 'Humidity',
         valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.humidity}%`,
+          `${params.row.humidity}%`,
     },
-    { field: 'note', headerName: 'Observer note' },
+    { field: 'moonPhase', headerName: 'Moon phase' },
+    { field: 'weather', headerName: 'Weather' },
+    { field: 'note', headerName: 'Note' },
 ];
 
 export default function Observations() {

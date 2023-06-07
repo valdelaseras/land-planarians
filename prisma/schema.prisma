@@ -12,9 +12,9 @@ datasource db {
 
 model Observation {
   id            Int          @id @default(autoincrement())
+  datetime      DateTime?
   individuals   Individual[]
   environment   ENVIRONMENT
-  datetime      DateTime?
   coordinates   Coordinates? @relation(fields: [coordinatesId], references: [id])
   coordinatesId Int?
   moonPhase     MOON_PHASE

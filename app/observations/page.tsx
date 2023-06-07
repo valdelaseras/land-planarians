@@ -1,11 +1,16 @@
 'use client';
-import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
+import {
+    DataGrid,
+    GridColDef,
+    GridRenderCellParams,
+    GridValueGetterParams,
+} from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { Observation } from '@/model/observation.interface';
-import { Individual } from "@/model/individual.interface";
-import { Card, CardActionArea, CardContent } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Individual } from '@/model/individual.interface';
+import { Card, CardActionArea, CardContent } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 const columns: GridColDef[] = [
     {
@@ -15,7 +20,7 @@ const columns: GridColDef[] = [
         maxWidth: 200,
         renderCell: (params: GridRenderCellParams) => {
             return row(params);
-        }
+        },
     },
     {
         field: 'datetime',
@@ -39,30 +44,30 @@ const columns: GridColDef[] = [
         headerName: 'Temperature',
         flex: 1,
         valueGetter: (params: GridValueGetterParams) =>
-          `${params.row.temperature}°C`,
+            `${params.row.temperature}°C`,
     },
     {
         field: 'humidity',
         headerName: 'Humidity',
         flex: 1,
         valueGetter: (params: GridValueGetterParams) =>
-          `${params.row.humidity}%`,
+            `${params.row.humidity}%`,
     },
     {
         field: 'moonPhase',
         headerName: 'Moon phase',
-        flex: 1
+        flex: 1,
     },
     {
         field: 'weather',
         headerName: 'Weather',
-        flex: 1
+        flex: 1,
     },
     {
         field: 'note',
         headerName: 'Note',
-        flex: 1
-    }
+        flex: 1,
+    },
 ];
 
 export default function Observations() {
@@ -87,50 +92,67 @@ export default function Observations() {
     );
 }
 
-const row = ( params: GridRenderCellParams ) => {
+const row = (params: GridRenderCellParams) => {
     return (
-      // if there are more than 1 individuals, need some visual feedback to indicate
-      // scrolling possibility ( other than the X scroll bar )
-      <Box sx={{ display: "flex", gap: 1, overflowX: "scroll" }}>
-          {params.row.individuals.map((individual : Individual) => {
-              return card(individual)
-          })}
-      </Box>
-    )
-}
+        // if there are more than 1 individuals, need some visual feedback to indicate
+        // scrolling possibility ( other than the X scroll bar )
+        <Box sx={{ display: 'flex', gap: 1, overflowX: 'scroll' }}>
+            {params.row.individuals.map((individual: Individual) => {
+                return card(individual);
+            })}
+        </Box>
+    );
+};
 
-const card = ( individual: Individual ) => {
+const card = (individual: Individual) => {
     return (
-      <Card key={individual.id} sx={{ display: "inline-block", minWidth: 180, maxWidth: 180, height: 190 }}>
-          {/*<CardActionArea>*/}
-              {/*<CardMedia*/}
-              {/*  component="img"*/}
-              {/*  height="140"*/}
-              {/*  image="/static/images/cards/contemplative-reptile.jpg"*/}
-              {/*  alt="green iguana"*/}
-              {/*/>*/}
-              <CardContent>
-                  <Typography component="p" sx={{ mb: 2 }}>
-                      {/*`${individual.phylum}, ${individual.species}`*/}
-                      Taxa
-                  </Typography>
-                  <ul>
-                      <li>
-                          <Typography component="span">Status:</Typography>
-                          <Typography component="span"> {individual.status}</Typography>
-                      </li>
-                      <li>
-                          <Typography component="span">Activity:</Typography>
-                          <Typography component="span"> {individual.activity}</Typography>
-                      </li>
-                      <li>
-                          <Typography component="span">Fluorescence:</Typography>
-                          <Typography component="p"> {individual.fluorescence}</Typography>
-                      </li>
-                  </ul>
-              </CardContent>
-          {/*</CardActionArea>*/}
-      </Card>
-    )
-}
-
+        <Card
+            key={individual.id}
+            sx={{
+                display: 'inline-block',
+                minWidth: 180,
+                maxWidth: 180,
+                height: 190,
+            }}>
+            {/*<CardActionArea>*/}
+            {/*<CardMedia*/}
+            {/*  component="img"*/}
+            {/*  height="140"*/}
+            {/*  image="/static/images/cards/contemplative-reptile.jpg"*/}
+            {/*  alt="green iguana"*/}
+            {/*/>*/}
+            <CardContent>
+                <Typography
+                    component="p"
+                    sx={{ mb: 2 }}>
+                    {/*`${individual.phylum}, ${individual.species}`*/}
+                    Taxa
+                </Typography>
+                <ul>
+                    <li>
+                        <Typography component="span">Status:</Typography>
+                        <Typography component="span">
+                            {' '}
+                            {individual.status}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography component="span">Activity:</Typography>
+                        <Typography component="span">
+                            {' '}
+                            {individual.activity}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography component="span">Fluorescence:</Typography>
+                        <Typography component="p">
+                            {' '}
+                            {individual.fluorescence}
+                        </Typography>
+                    </li>
+                </ul>
+            </CardContent>
+            {/*</CardActionArea>*/}
+        </Card>
+    );
+};

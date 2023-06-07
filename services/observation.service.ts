@@ -1,19 +1,13 @@
 import {PrismaClient} from "@prisma/client";
 import { Observation } from "@/model/observation.interface";
-import { ACTIVITY, MOON_PHASE } from "@/model/enums";
 import { prisma } from "@/prisma/prisma.client";
 
-/**
- * Properties to select from an observation
- *
- * - including non-primitive types
- * - excluding relational ids
- */
 const observationSelect = {
   id: true,
   datetime: true,
   individuals: {
     select: {
+      id: true,
       fluorescence: true,
       status: true,
       activity: true,

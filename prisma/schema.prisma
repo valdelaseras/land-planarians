@@ -25,7 +25,7 @@ model Observation {
 }
 
 model Individual {
-  id            Int          @id
+  id            Int          @id @default(autoincrement())
   fluorescence  FLUORESCENCE
   status        STATUS
   activity      ACTIVITY
@@ -34,7 +34,7 @@ model Individual {
 }
 
 model Coordinates {
-  id           Int           @id
+  id           Int           @id @default(autoincrement())
   observations Observation[]
   latitude     String
   longitude    String

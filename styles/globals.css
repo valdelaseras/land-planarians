@@ -1,9 +1,22 @@
+:root {
+    --primary-bg-color: #222;
+    --secondary-bg-color: #000;
+
+    --primary-font-color: #f4f4f4;
+    --secondary-font-color: #fff;
+
+    --primary-accent-color: #00c4ff;
+    --secondary-accent-color: #aa00ff;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-size: 1rem;
     line-height: 1.5rem;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-font-color);
 }
 
 section {
@@ -15,3 +28,15 @@ ul {
     list-style-type: none;
     padding-left: 0;
 }
+
+.theme-primary {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-font-color);
+}
+
+.theme-secondary {
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-font-color);
+}
+
+

@@ -8,9 +8,16 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Observation } from '@/model/observation.interface';
 import { Individual } from '@/model/individual.interface';
-import { Card, CardActionArea, CardContent } from '@mui/material';
+import { Card, CardContent } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { MOON_PHASE } from '@/model/enums';
+import {
+    Brightness3Sharp,
+    ContrastSharp,
+    LensOutlined,
+    LensSharp,
+} from '@mui/icons-material';
 
 const columns: GridColDef[] = [
     {
@@ -57,6 +64,17 @@ const columns: GridColDef[] = [
         field: 'moonPhase',
         headerName: 'Moon phase',
         flex: 1,
+        renderCell: (params: GridRenderCellParams) => {
+            return (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}>
+                    {resolveMoonPhaseIcon(params.row.moonPhase)}
+                </Box>
+            );
+        },
     },
     {
         field: 'weather',
@@ -83,6 +101,7 @@ export default function Observations() {
         <section id="observations">
             <h2>Observations</h2>
             <DataGrid
+                className="theme-primary"
                 density="compact"
                 rowHeight={300}
                 columns={columns}
@@ -107,6 +126,7 @@ const row = (params: GridRenderCellParams) => {
 const card = (individual: Individual) => {
     return (
         <Card
+            className="theme-secondary"
             key={individual.id}
             sx={{
                 display: 'inline-block',
@@ -131,28 +151,40 @@ const card = (individual: Individual) => {
                 <ul>
                     <li>
                         <Typography component="span">Status:</Typography>
-                        <Typography component="span">
-                            {' '}
-                            {individual.status}
-                        </Typography>
+                        <Typography component="span">{individual.status}</Typography>
                     </li>
                     <li>
                         <Typography component="span">Activity:</Typography>
-                        <Typography component="span">
-                            {' '}
-                            {individual.activity}
-                        </Typography>
+                        <Typography component="span">{individual.activity}</Typography>
                     </li>
                     <li>
                         <Typography component="span">Fluorescence:</Typography>
-                        <Typography component="p">
-                            {' '}
-                            {individual.fluorescence}
-                        </Typography>
+                        <Typography component="p">{individual.fluorescence}</Typography>
                     </li>
                 </ul>
             </CardContent>
             {/*</CardActionArea>*/}
         </Card>
     );
+};
+
+const resolveMoonPhaseIcon = (phase: MOON_PHASE) => {
+    switch (phase) {
+        case MOON_PHASE.NEW_MOON:
+            return <LensOutlined/>;
+        case MOON_PHASE.WAXING_CRESCENT:
+            return <Brightness3Sharp/>;
+        case MOON_PHASE.FIRST_QUARTER:
+            return <ContrastSharp sx={{ transform: 'rotate(180deg)' }} />;
+        case MOON_PHASE.WAXING_GIBBOUS:
+            return <Brightness3Sharp/>; // @todo
+        case MOON_PHASE.FULL_MOON:
+            return <LensSharp/>;
+        case MOON_PHASE.WANING_GIBBOUS:
+            return <Brightness3Sharp/>; // @todo
+        case MOON_PHASE.THIRD_QUARTER:
+            return <ContrastSharp/>;
+        case MOON_PHASE.WANING_CRESCENT:
+            return <Brightness3Sharp sx={{ transform: 'rotate(180deg)' }} />;
+    }
 };

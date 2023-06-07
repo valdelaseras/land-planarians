@@ -26,8 +26,8 @@ export default function Nav() {
         <nav id="nav">
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar
-                    position="static"
-                    color="inherit">
+                    className="theme-secondary"
+                    position="static">
                     <Toolbar variant="dense">
                         <IconButton
                             size="medium"

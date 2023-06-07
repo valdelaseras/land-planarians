@@ -6,32 +6,31 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Observation {
   id            Int          @id @default(autoincrement())
-  isAlive       Boolean
-  quantity      Int?
+  individuals   Individual[]
+  environment   ENVIRONMENT
   datetime      DateTime?
-  fluorescence  Boolean?
-  activity      Activity?    @relation(fields: [activityId], references: [id])
-  activityId    Int?
   coordinates   Coordinates? @relation(fields: [coordinatesId], references: [id])
   coordinatesId Int?
-  moonPhase     MoonPhase?   @relation(fields: [moonPhaseId], references: [id])
-  moonPhaseId   Int?
+  moonPhase     MOON_PHASE
   temperature   Int?
   weather       String?
   humidity      Int?
   note          String?
 }
 
-model Activity {
-  id           Int           @id
-  observations Observation[]
-  name         String
+model Individual {
+  id            Int          @id
+  fluorescence  FLUORESCENCE
+  status        STATUS
+  activity      ACTIVITY
+  Observation   Observation? @relation(fields: [observationId], references: [id])
+  observationId Int?
 }
 
 model Coordinates {
@@ -41,8 +40,58 @@ model Coordinates {
   longitude    String
 }
 
-model MoonPhase {
-  id           Int           @id
-  observations Observation[]
-  name         String
+enum MOON_PHASE {
+  NEW_MOON
+  WANING_CRESCENT
+  THIRD_QUARTER
+  WANING_GIBBOUS
+  FULL_MOON
+  WAXING_GIBBOUS
+  FIRST_QUARTER
+  WAXING_CRESCENT
+}
+
+enum ACTIVITY {
+  UNKNOWN
+  PASSIVE
+  RESTING
+  MOVING
+  SEARCHING
+  HUNTING
+  AGGRESSIVE
+  DEFENSIVE
+  EATING
+  MATING
+  REPRODUCING
+  DECEASED
+  OTHER
+}
+
+enum FLUORESCENCE {
+  DETECTED
+  NOT_DETECTED
+  NOT_DETERMINED
+}
+
+enum STATUS {
+  ALIVE
+  DECEASED
+  UNKNOWN
+}
+
+enum ENVIRONMENT {
+  FOREST
+  GRASSLAND
+  WETLAND
+  SHRUBLAND
+  ALPINE
+  URBAN
+  CAVES
+  DUNES
+  RIVERBEDS
+  MOUNTAINS
+  FARMLAND
+  PARKS
+  GARDENS
+  OTHER
 }

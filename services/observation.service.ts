@@ -19,16 +19,8 @@ const observationSelect = {
   humidity: true,
   fluorescence: true,
   note: true,
-  activity: {
-    select: {
-      name: true
-    }
-  },
-  moonPhase: {
-    select: {
-      name: true
-    }
-  },
+  activity: true,
+  moonPhase: true,
   coordinates: {
     select: {
       longitude: true,
@@ -72,8 +64,6 @@ export default class ObservationService {
     const result = {
       ...observation,
       location: observation.coordinates,
-      activity: observation.activity?.name as ACTIVITY || null,
-      moonPhase: observation.moonPhase.name as MOON_PHASE
     };
 
     delete result.coordinates;

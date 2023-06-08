@@ -1,0 +1,13 @@
+/*MUI overrides*/
+.MuiDataGrid-columnHeaders,
+.MuiDataGrid-cell {
+    border-bottom: none!important;
+}
+
+.MuiDataGrid-footerContainer {
+    border-top: none!important;
+}
+
+.MuiTablePagination-root {
+    color: var(--primary-font-color)!important;
+}

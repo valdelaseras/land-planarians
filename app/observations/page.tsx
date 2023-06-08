@@ -7,10 +7,6 @@ import {
 } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { Observation } from '@/model/observation.interface';
-import { Individual } from '@/model/individual.interface';
-import { Card, CardContent } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import { MOON_PHASE } from '@/model/enums';
 import {
     Brightness3Sharp,
@@ -23,11 +19,10 @@ const columns: GridColDef[] = [
     {
         field: 'individuals',
         headerName: 'Individuals',
-        minWidth: 200,
-        maxWidth: 200,
+        flex: 1,
         renderCell: (params: GridRenderCellParams) => {
-            return row(params);
-        },
+            return params.row.individuals.length
+        }
     },
     {
         field: 'datetime',
@@ -65,15 +60,7 @@ const columns: GridColDef[] = [
         headerName: 'Moon phase',
         flex: 1,
         renderCell: (params: GridRenderCellParams) => {
-            return (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}>
-                    {resolveMoonPhaseIcon(params.row.moonPhase)}
-                </Box>
-            );
+            return resolveMoonPhaseIcon(params.row.moonPhase)
         },
     },
     {
@@ -102,71 +89,16 @@ export default function Observations() {
             <h2>Observations</h2>
             <DataGrid
                 className="theme-primary"
-                density="compact"
-                rowHeight={300}
                 columns={columns}
                 rows={observations}
+                sx={{ border: 'none' }}
+                getRowClassName={(params) =>
+                  params.indexRelativeToCurrentPage % 2 === 0 ? 'theme-primary-dark' : 'theme-primary-darker'
+                }
             />
         </section>
     );
 }
-
-const row = (params: GridRenderCellParams) => {
-    return (
-        // if there are more than 1 individuals, need some visual feedback to indicate
-        // scrolling possibility ( other than the X scroll bar )
-        <Box sx={{ display: 'flex', gap: 1, overflowX: 'scroll' }}>
-            {params.row.individuals.map((individual: Individual) => {
-                return card(individual);
-            })}
-        </Box>
-    );
-};
-
-const card = (individual: Individual) => {
-    return (
-        <Card
-            className="theme-secondary"
-            key={individual.id}
-            sx={{
-                display: 'inline-block',
-                minWidth: 180,
-                maxWidth: 180,
-                height: 190,
-            }}>
-            {/*<CardActionArea>*/}
-            {/*<CardMedia*/}
-            {/*  component="img"*/}
-            {/*  height="140"*/}
-            {/*  image="/static/images/cards/contemplative-reptile.jpg"*/}
-            {/*  alt="green iguana"*/}
-            {/*/>*/}
-            <CardContent>
-                <Typography
-                    component="p"
-                    sx={{ mb: 2 }}>
-                    {/*`${individual.phylum}, ${individual.species}`*/}
-                    Taxa
-                </Typography>
-                <ul>
-                    <li>
-                        <Typography component="span">Status:</Typography>
-                        <Typography component="span">{individual.status}</Typography>
-                    </li>
-                    <li>
-                        <Typography component="span">Activity:</Typography>
-                        <Typography component="span">{individual.activity}</Typography>
-                    </li>
-                    <li>
-                        <Typography component="span">Fluorescence:</Typography>
-                        <Typography component="p">{individual.fluorescence}</Typography>
-                    </li>
-                </ul>
-            </CardContent>
-            {/*</CardActionArea>*/}
-        </Card>
-    );
-};
 
 const resolveMoonPhaseIcon = (phase: MOON_PHASE) => {
     switch (phase) {

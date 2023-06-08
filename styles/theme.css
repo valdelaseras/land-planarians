@@ -1,0 +1,36 @@
+:root {
+    --primary-bg-color: #222436;
+    --secondary-bg-color: #222;
+
+    --primary-bg-color-dark: #1c1e2e;
+    --primary-bg-color-darker: #191b27;
+
+    --primary-font-color: #bed2f6;
+    --secondary-font-color: #fff;
+
+    --primary-accent-bg-color: #7862e9;
+    --secondary-accent-bg-color: #08b3fb;
+}
+
+.theme-primary {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-font-color);
+}
+
+.theme-secondary {
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-font-color);
+}
+
+.theme-primary-accent {
+    background-color: var(--primary-accent-bg-color);
+    color: var(--secondary-font-color);
+}
+
+.theme-primary-dark {
+    background-color: var(--primary-bg-color-darker);
+}
+
+.theme-primary-darker {
+    background-color: var(--primary-bg-color-dark);
+}

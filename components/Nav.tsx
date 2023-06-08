@@ -26,11 +26,12 @@ export default function Nav() {
         <nav id="nav">
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar
-                    className="theme-secondary"
+                    className="theme-primary"
+                    elevation={0}
                     position="static">
-                    <Toolbar variant="dense">
+                    <Toolbar>
                         <IconButton
-                            size="medium"
+                            size="large"
                             edge="start"
                             color="inherit"
                             aria-label="menu"
@@ -38,7 +39,7 @@ export default function Nav() {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
-                            sx={{ mr: 1 }}>
+                            sx={{ mr: 0.5, color: '#7862e9'}}>
                             <MenuIcon />
                         </IconButton>
                         <Menu
@@ -63,14 +64,14 @@ export default function Nav() {
                         </Menu>
                         <Typography
                             component="span"
-                            sx={{ flexGrow: 1 }}>
+                            sx={{ flexGrow: 1, color: '#7862e9', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>
                             planarifun
                         </Typography>
                         <Button
                             href="/observations/new"
+                            className="theme-primary-accent"
                             variant="contained"
-                            size="small"
-                            color="primary">
+                            size="small">
                             add observation
                         </Button>
                     </Toolbar>

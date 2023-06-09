@@ -26,20 +26,22 @@ export default function Nav() {
         <nav id="nav">
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar
-                    className="theme-primary"
+                    sx={{ backgroundColor: 'transparent' }}
                     elevation={0}
                     position="static">
                     <Toolbar>
                         <IconButton
                             size="large"
                             edge="start"
-                            color="inherit"
                             aria-label="menu"
                             aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
-                            sx={{ mr: 0.5, color: '#7862e9'}}>
+                            sx={{
+                                mr: 0.5,
+                                color: 'var(--primary-accent-color)',
+                            }}>
                             <MenuIcon />
                         </IconButton>
                         <Menu
@@ -54,20 +56,33 @@ export default function Nav() {
                                 <Link href={'/'}>Home</Link>
                             </MenuItem>
                             <MenuItem onClick={handleClose}>
-                                <Link href={'/observations'}>Observations</Link>
+                                <Link href={'/observations'}>
+                                    Observations overview
+                                </Link>
                             </MenuItem>
                             <MenuItem onClick={handleClose}>
                                 <Link href={'/observations/new'}>
-                                    Add observation
+                                    New observation
                                 </Link>
                             </MenuItem>
                         </Menu>
                         <Typography
                             component="span"
-                            sx={{ flexGrow: 1, color: '#7862e9', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>
+                            sx={{
+                                flexGrow: 1,
+                                color: 'var(--primary-accent-color)',
+                                letterSpacing: '2px',
+                                textTransform: 'uppercase',
+                                fontWeight: 600,
+                            }}>
                             planarifun
                         </Typography>
                         <Button
+                            sx={{
+                                backgroundColor:
+                                    'var(--primary-accent-bg-color)',
+                                color: 'var(--secondary-font-color)',
+                            }}
                             href="/observations/new"
                             className="theme-primary-accent"
                             variant="contained"

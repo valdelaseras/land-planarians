@@ -1,7 +1,11 @@
+import Section from '@/components/Section';
+
 export default function Home() {
     return (
-        <section id="home">
-            <h1>Home</h1>
-        </section>
+        <Section
+            id="home"
+            title="Home">
+            <p>Stuff goes here</p>
+        </Section>
     );
 }

@@ -1,7 +1,11 @@
+import Section from '@/components/Section';
+
 export default function NewObservation() {
     return (
-        <section id="observation-form">
-            <h2>Add observation</h2>
-        </section>
+        <Section
+            id="new-observation"
+            title="New observation">
+            <p>Form goes here</p>
+        </Section>
     );
 }

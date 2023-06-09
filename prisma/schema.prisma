@@ -19,7 +19,7 @@ model Observation {
   coordinatesId Int?
   moonPhase     MOON_PHASE
   temperature   Int?
-  weather       String?
+  weather       WEATHER
   humidity      Int?
   note          String?
 }
@@ -64,6 +64,30 @@ enum ACTIVITY {
   MATING
   REPRODUCING
   DECEASED
+  OTHER
+}
+
+enum WEATHER {
+  CLEAR
+  MOSTLY_CLEAR
+  PARTLY_CLOUDY
+  MOSTLY_CLOUDY
+  CLOUDY
+  OVERCAST
+  LIGHT_RAIN
+  MODERATE_RAIN
+  HEAVY_RAIN
+  SHOWERS
+  SCATTERED_SHOWERS
+  LIGHT_SNOW
+  MODERATE_SNOW
+  HEAVY_SNOW
+  THUNDERSTORMS
+  FOG
+  MIST
+  HAZE
+  WINDY
+  HAIL
   OTHER
 }
 

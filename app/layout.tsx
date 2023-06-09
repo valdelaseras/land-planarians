@@ -1,5 +1,7 @@
-import '../styles/globals.css';
+import '../theme/styles/globals.css';
 import Nav from '@/components/Nav';
+// import { ThemeProvider } from "@mui/material";
+// import { theme } from "@/theme/theme";
 
 export const metadata = {
     title: 'Planarians',
@@ -12,6 +14,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
+        // <ThemeProvider theme={theme}>
         <html lang="en">
             <body>
                 <header>
@@ -22,5 +25,6 @@ export default function RootLayout({
                 </main>
             </body>
         </html>
+        // </ThemeProvider>
     );
 }

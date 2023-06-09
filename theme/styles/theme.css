@@ -8,8 +8,8 @@
     --primary-font-color: #bed2f6;
     --secondary-font-color: #fff;
 
-    --primary-accent-bg-color: #7862e9;
-    --secondary-accent-bg-color: #08b3fb;
+    --primary-accent-color: #7862e9;
+    --primary-accent-bg-color: var(--primary-accent-color);
 }
 
 .theme-primary {

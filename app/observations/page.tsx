@@ -1,122 +1,13 @@
-'use client';
-import {
-    DataGrid,
-    GridColDef,
-    GridRenderCellParams,
-    GridValueGetterParams,
-} from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
-import { Observation } from '@/model/observation.interface';
-import { MOON_PHASE } from '@/model/enums';
-import {
-    Brightness3Sharp,
-    ContrastSharp,
-    LensOutlined,
-    LensSharp,
-} from '@mui/icons-material';
-
-const columns: GridColDef[] = [
-    {
-        field: 'individuals',
-        headerName: 'Individuals',
-        flex: 1,
-        renderCell: (params: GridRenderCellParams) => {
-            return params.row.individuals.length
-        }
-    },
-    {
-        field: 'datetime',
-        headerName: 'Datetime',
-        flex: 1,
-    },
-    {
-        field: 'location',
-        headerName: 'Location',
-        flex: 1,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.location.longitude}, ${params.row.location.latitude}`,
-    },
-    {
-        field: 'environment',
-        headerName: 'Environment',
-        flex: 1,
-    },
-    {
-        field: 'temperature',
-        headerName: 'Temperature',
-        flex: 1,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.temperature}°C`,
-    },
-    {
-        field: 'humidity',
-        headerName: 'Humidity',
-        flex: 1,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.humidity}%`,
-    },
-    {
-        field: 'moonPhase',
-        headerName: 'Moon phase',
-        flex: 1,
-        renderCell: (params: GridRenderCellParams) => {
-            return resolveMoonPhaseIcon(params.row.moonPhase)
-        },
-    },
-    {
-        field: 'weather',
-        headerName: 'Weather',
-        flex: 1,
-    },
-    {
-        field: 'note',
-        headerName: 'Note',
-        flex: 1,
-    },
-];
+import React from 'react';
+import Section from '@/components/Section';
+import { Overview } from '@/components/Overview';
 
 export default function Observations() {
-    const [observations, setObservations] = useState([] as Observation[]);
-
-    useEffect(() => {
-        fetch('http://localhost:3000/api/observations')
-            .then((response) => response.json())
-            .then((result) => setObservations(result));
-    }, []);
-
     return (
-        <section id="observations">
-            <h2>Observations</h2>
-            <DataGrid
-                className="theme-primary"
-                columns={columns}
-                rows={observations}
-                sx={{ border: 'none' }}
-                getRowClassName={(params) =>
-                  params.indexRelativeToCurrentPage % 2 === 0 ? 'theme-primary-dark' : 'theme-primary-darker'
-                }
-            />
-        </section>
+        <Section
+            id="observations"
+            title="Observations">
+            <Overview />
+        </Section>
     );
 }
-
-const resolveMoonPhaseIcon = (phase: MOON_PHASE) => {
-    switch (phase) {
-        case MOON_PHASE.NEW_MOON:
-            return <LensOutlined/>;
-        case MOON_PHASE.WAXING_CRESCENT:
-            return <Brightness3Sharp/>;
-        case MOON_PHASE.FIRST_QUARTER:
-            return <ContrastSharp sx={{ transform: 'rotate(180deg)' }} />;
-        case MOON_PHASE.WAXING_GIBBOUS:
-            return <Brightness3Sharp/>; // @todo
-        case MOON_PHASE.FULL_MOON:
-            return <LensSharp/>;
-        case MOON_PHASE.WANING_GIBBOUS:
-            return <Brightness3Sharp/>; // @todo
-        case MOON_PHASE.THIRD_QUARTER:
-            return <ContrastSharp/>;
-        case MOON_PHASE.WANING_CRESCENT:
-            return <Brightness3Sharp sx={{ transform: 'rotate(180deg)' }} />;
-    }
-};
